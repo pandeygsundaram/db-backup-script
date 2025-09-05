@@ -30,7 +30,12 @@ async function createBackup() {
     const filename = `backup_${DB_NAME}_${timestamp}.sql`;
 
     // Create pg_dump
-    const dump = spawn('pg_dump', ['-U', DB_USER, '-d', DB_NAME], {
+    const dump = spawn('pg_dump', [
+        '-h', 'localhost',
+        '-p', '5432',
+        '-U', DB_USER,
+        '-d', DB_NAME
+    ], {
         env: { ...process.env, PGPASSWORD: DB_PASSWORD }
     });
 
